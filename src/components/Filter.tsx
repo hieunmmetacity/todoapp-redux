@@ -1,22 +1,29 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { sortByName, sortByStatus } from "../features/todoSlice";
 
 type Props = {};
 
 const Filter = (props: Props) => {
+    const dispatch = useDispatch();
     const [showIconClicked, setShowIconClicked] = useState("");
-    const handleSortByStatus = (status: string) => {
-        if (status === "active") {
+    const handleSortByStatus = (sortBy: string) => {
+        console.log("sort");
+
+        if (sortBy === "active") {
             setShowIconClicked("active");
-        } else if (status == "hide") {
+        } else if (sortBy == "hide") {
             setShowIconClicked("hide");
         }
+        dispatch(sortByStatus(sortBy));
     };
-    const handleSortByName = (status: string) => {
-        if (status === "az") {
+    const handleSortByName = (sortBy: string) => {
+        if (sortBy === "az") {
             setShowIconClicked("az");
-        } else if (status == "za") {
+        } else if (sortBy == "za") {
             setShowIconClicked("za");
         }
+        dispatch(sortByName(sortBy));
     };
     return (
         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -37,7 +44,7 @@ const Filter = (props: Props) => {
                     <li onClick={() => handleSortByName("az")}>
                         <span className="dropdown-item">
                             Tên A-Z
-                            {showIconClicked === "" ? (
+                            {showIconClicked === "az" ? (
                                 <i className="fa-solid fa-check ms-4"></i>
                             ) : (
                                 ""

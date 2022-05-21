@@ -12,6 +12,7 @@ const Table = (props: Props) => {
     const todoFilter: IToDo[] = useSelector(
         (state: any) => state.todoList.todoFilter
     );
+    // load table when todolist change
     useEffect(() => {
         dispatch(filterByStatus(filterValue));
     }, [todoList]);
@@ -46,7 +47,7 @@ const Table = (props: Props) => {
                     </td>
                     <td>
                         <select
-                            className="form-control"
+                            className="form-select"
                             name="filterStatus"
                             onChange={handleFilterByStatus}
                         >

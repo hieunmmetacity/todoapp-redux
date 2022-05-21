@@ -79,6 +79,47 @@ const todoSlice = createSlice({
                 state.todoFilter = state.value;
             }
         },
+        sortByStatus(state: any, action) {
+            const sortBy = action.payload;
+            if (sortBy === "active") {
+                const newTodoList = [...state.value].sort((a: any, b: any) => {
+                    return a.status > b.status
+                        ? 1
+                        : a.status < b.status
+                        ? -1
+                        : 0;
+                });
+                state.value = newTodoList;
+            } else if (sortBy == "hide") {
+                const newTodoList = [...state.value].sort((a: any, b: any) => {
+                    return a.status > b.status
+                        ? -1
+                        : a.status < b.status
+                        ? 1
+                        : 0;
+                });
+                state.value = newTodoList;
+            }
+        },
+        sortByName(state: any, action) {
+            const sortBy = action.payload;
+
+            if (sortBy === "az") {
+                const newTodoList = [...state.value].sort((a: any, b: any) => {
+                    var alc = a.name.toLowerCase(),
+                        blc = b.name.toLowerCase();
+                    return alc > blc ? 1 : alc < blc ? -1 : 0;
+                });
+                state.value = newTodoList;
+            } else if (sortBy === "za") {
+                const newTodoList = [...state.value].sort((a: any, b: any) => {
+                    var alc = a.name.toLowerCase(),
+                        blc = b.name.toLowerCase();
+                    return alc > blc ? -1 : alc < blc ? 1 : 0;
+                });
+                state.value = newTodoList;
+            }
+        },
     },
 });
 export const {
@@ -89,5 +130,7 @@ export const {
     changeStatus,
     filterByStatus,
     searchOnChange,
+    sortByStatus,
+    sortByName,
 } = todoSlice.actions;
 export default todoSlice.reducer;
