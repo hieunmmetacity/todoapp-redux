@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterByStatus, searchOnChange } from "../features/todoSlice";
+import { filterByStatus, searchByName } from "../features/todoSlice";
 import { IToDo } from "../types/todoType";
 import Item from "./Item";
 
@@ -23,7 +23,7 @@ const Table = (props: Props) => {
         dispatch(filterByStatus(e.target.value));
     };
     const handleChangeSearch = (e: any) => {
-        dispatch(searchOnChange(e.target.value));
+        dispatch(searchByName(e.target.value));
     };
     return (
         <table className="table table-bordered table-hover">

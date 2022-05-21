@@ -68,7 +68,7 @@ const todoSlice = createSlice({
                 state.todoFilter = state.value;
             }
         },
-        searchOnChange(state: any, action) {
+        searchByName(state: any, action) {
             const searchValue = action.payload;
             if (searchValue !== "") {
                 const newTodoList = state.value.filter((todo: any) =>
@@ -129,7 +129,7 @@ export const {
     getTodoUpdate,
     changeStatus,
     filterByStatus,
-    searchOnChange,
+    searchByName,
     sortByStatus,
     sortByName,
 } = todoSlice.actions;
