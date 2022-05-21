@@ -1,24 +1,29 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterByStatus } from "../features/todoSlice";
+import { filterByStatus, searchOnChange } from "../features/todoSlice";
 import { IToDo } from "../types/todoType";
 import Item from "./Item";
 
 type Props = {};
-
+let filterValue = "-1";
 const Table = (props: Props) => {
     const dispatch = useDispatch();
     const todoList: IToDo[] = useSelector((state: any) => state.todoList.value);
     const todoFilter: IToDo[] = useSelector(
         (state: any) => state.todoList.todoFilter
     );
+    useEffect(() => {
+        dispatch(filterByStatus(filterValue));
+    }, [todoList]);
     const todos = todoFilter ? todoFilter : todoList;
 
-    const handleRemove = (id: string) => {};
     const handleFilterByStatus = (e: any) => {
+        filterValue = e.target.value;
         dispatch(filterByStatus(e.target.value));
     };
-    const handleChangeSearch = (e: any) => {};
+    const handleChangeSearch = (e: any) => {
+        dispatch(searchOnChange(e.target.value));
+    };
     return (
         <table className="table table-bordered table-hover">
             <thead>

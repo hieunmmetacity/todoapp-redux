@@ -13,7 +13,8 @@ const todoSlice = createSlice({
     },
     reducers: {
         addTodoList(state: any, action) {
-            const newTodoList = state.value.push(action.payload);
+            const newTodoList = [...state.value, action.payload];
+            state.value = newTodoList;
             setTodoLocalStorage(newTodoList);
         },
         getTodoUpdate(state: any, action) {
@@ -54,13 +55,24 @@ const todoSlice = createSlice({
         filterByStatus(state: any, action) {
             const filterValue = action.payload;
             if (filterValue === "1") {
-                const newTodoList = state.value.filter(
+                const newTodoList = [...state.value].filter(
                     (todo: any) => todo.status === "1"
                 );
                 state.todoFilter = newTodoList;
             } else if (filterValue === "0") {
-                const newTodoList = state.value.filter(
+                const newTodoList = [...state.value].filter(
                     (todo: any) => todo.status === "0"
+                );
+                state.todoFilter = newTodoList;
+            } else {
+                state.todoFilter = state.value;
+            }
+        },
+        searchOnChange(state: any, action) {
+            const searchValue = action.payload;
+            if (searchValue !== "") {
+                const newTodoList = state.value.filter((todo: any) =>
+                    todo.name.toLowerCase().includes(searchValue.toLowerCase())
                 );
                 state.todoFilter = newTodoList;
             } else {
@@ -76,5 +88,6 @@ export const {
     getTodoUpdate,
     changeStatus,
     filterByStatus,
+    searchOnChange,
 } = todoSlice.actions;
 export default todoSlice.reducer;
