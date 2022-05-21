@@ -51,7 +51,22 @@ const todoSlice = createSlice({
             state.value = newTodoList;
             setTodoLocalStorage(newTodoList);
         },
-        filterByStatus(state: any, action) {},
+        filterByStatus(state: any, action) {
+            const filterValue = action.payload;
+            if (filterValue === "1") {
+                const newTodoList = state.value.filter(
+                    (todo: any) => todo.status === "1"
+                );
+                state.todoFilter = newTodoList;
+            } else if (filterValue === "0") {
+                const newTodoList = state.value.filter(
+                    (todo: any) => todo.status === "0"
+                );
+                state.todoFilter = newTodoList;
+            } else {
+                state.todoFilter = state.value;
+            }
+        },
     },
 });
 export const {

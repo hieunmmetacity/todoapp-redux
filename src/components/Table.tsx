@@ -16,7 +16,6 @@ const Table = (props: Props) => {
 
     const handleRemove = (id: string) => {};
     const handleFilterByStatus = (e: any) => {
-        console.log(e.target.value);
         dispatch(filterByStatus(e.target.value));
     };
     const handleChangeSearch = (e: any) => {};
